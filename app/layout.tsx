@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Cumpleaños de Edson Noyla | RSVP',
-  description: 'Confirma tu asistencia al cumpleaños de Edson Noyla - 21 de Febrero 2026',
+  title: 'Cumpleaños de Edson Noyola | RSVP',
+  description: 'Confirma tu asistencia al cumpleaños de Edson Noyola - 21 de Febrero 2026, 3:00 PM',
   openGraph: {
-    title: 'Estás Invitado al Cumpleaños de Edson Noyla',
-    description: '21 de Febrero 2026 | Salón FER, Rio Grande, Zacatecas | Temática: Blanco y Negro',
+    title: 'Estás Invitado al Cumpleaños de Edson Noyola',
+    description: '21 de Febrero 2026 | 3:00 PM | Salón FER, Rio Grande, Zacatecas | Temática: Blanco y Negro',
   },
 }
 

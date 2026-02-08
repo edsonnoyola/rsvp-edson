@@ -1,7 +1,10 @@
 import { Redis } from '@upstash/redis'
 import { NextResponse } from 'next/server'
 
-const redis = Redis.fromEnv()
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL!,
+  token: process.env.KV_REST_API_TOKEN!,
+})
 
 export async function POST(request: Request) {
   try {
@@ -15,9 +18,25 @@ export async function POST(request: Request) {
       )
     }
 
+    const tel = telefono.trim().replace(/\D/g, '')
+
+    // Check if phone already registered
+    const existing = await redis.lrange('rsvps', 0, -1)
+    const duplicate = existing.some((r: unknown) => {
+      const parsed = typeof r === 'string' ? JSON.parse(r) : r
+      return parsed.telefono?.replace(/\D/g, '') === tel
+    })
+
+    if (duplicate) {
+      return NextResponse.json(
+        { error: 'Este número ya está registrado' },
+        { status: 409 }
+      )
+    }
+
     const rsvp = {
       nombre: nombre.trim(),
-      telefono: telefono.trim(),
+      telefono: tel,
       acompanantes: acompanantes || 0,
       timestamp: new Date().toISOString(),
     }
